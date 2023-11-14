@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1(cw0_y*5(a8#zm0ip#k1hf2kc3+u)v2w^zc&e3(3gw3s1ba5i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -58,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'homeinsightprj.urls'
@@ -93,6 +94,9 @@ DATABASES = {
 
 }
 
+ALLOWED_HOSTS = ['https://energy-tracker-92f6c95445f7.herokuapp.com/', '127.0.0.1' ]
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -124,8 +128,6 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -142,11 +144,11 @@ ACCOUNT_EMAIL_REQUIRED=True
 ACCOUNT_EMAIL_VERIFICATION='none'
 ACCOUNT_USERNAME_REQUIRED=False
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
+
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL= '/media/'
