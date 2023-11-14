@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-1(cw0_y*5(a8#zm0ip#k1hf2kc3+u)v2w^zc&e3(3gw3s1ba5i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -94,7 +93,7 @@ DATABASES = {
 
 }
 
-ALLOWED_HOSTS = ['https://energy-tracker-92f6c95445f7.herokuapp.com/', '127.0.0.1' ]
+ALLOWED_HOSTS = ['energy-tracker-92f6c95445f7.herokuapp.com', '127.0.0.1' ]
 
 
 
