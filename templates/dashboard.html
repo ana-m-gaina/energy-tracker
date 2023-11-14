@@ -1,0 +1,157 @@
+{% extends 'profile-base.html' %} {% load static %} {% block pagetitle %}
+<div class="pagetitle d-flex flex-column justify-content-center">
+  <h1 class="mb-0">Dashboard</h1>
+  <nav>
+    <ol class="breadcrumb m-0 p-0">
+      <li class="breadcrumb-item">Profile</li>
+      <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+  </nav>
+</div>
+
+{% endblock pagetitle %} {% block content %}
+<section class="section dashboard">
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-lg-4">
+      <div class="d-flex card h-100 d-flex justify-content-center">
+        <div class="card-body">
+          <h5 class="card-title">Daily max <span>| {{max_daily_key}}</span></h5>
+
+          <div class="d-flex align-items-center">
+            <img
+              src="{% static 'assets\img\D_icon.png'  %}"
+              class="card-icon d-flex align-items-center justify-content-center"
+            />
+            <div class="ps-3">
+              <h6>{{max_daily_value}} kW⋅h</h6>
+              <span class="text-muted small pt-2 ps-1">
+                last recorded day
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="d-flex card h-100 d-flex justify-content-center">
+        <div class="card-body">
+          <h5 class="card-title">
+            Monthly max <span>| {{max_monthly_key}}</span>
+          </h5>
+
+          <div class="d-flex align-items-center">
+            <img
+              src="{% static 'assets\img\M_icon.png'  %}"
+              class="card-icon d-flex align-items-center justify-content-center"
+            />
+            <div class="ps-3">
+              <h6>{{max_monthly_value}} kW⋅h</h6>
+              <span class="text-muted small pt-2 ps-1">
+                last recorded month
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="d-flex card h-100 d-flex justify-content-center">
+        <div class="card-body">
+          <h5 class="card-title">
+            Average max <span>| {{max_yearly_key}}</span>
+          </h5>
+
+          <div class="d-flex align-items-center">
+            <img
+              src="{% static 'assets\img\Y_icon.png'  %}"
+              class="card-icon d-flex align-items-center justify-content-center"
+            />
+
+            <div class="ps-3">
+              <h6>{{max_yearly_value}} kW⋅h</h6>
+              <span class="text-muted small pt-2 ps-1">
+                last recorded year
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-8">
+      <div class="card h-100">
+        <div class="card-body">
+          <h5 class="card-title">Monthly Average<span>/last year</span></h5>
+          <div id="reportsChart"></div>
+          <script>
+
+            document.addEventListener("DOMContentLoaded", () => {
+
+              new ApexCharts(document.querySelector("#reportsChart"), {
+                series: [
+                  {% for key, value in series.items %}
+                    {
+                      name: '{{ key }}',
+                      data: [{% for item in value %} '{{ item }}', {% endfor %}],
+                    },
+                  {% endfor %}
+                ],
+                chart: {
+                  type: 'bar',
+                  height: 350,
+                },
+                plotOptions: {
+                  bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded',
+                  },
+                },
+                dataLabels: {
+                  enabled: false,
+                },
+                stroke: {
+                  show: true,
+                  width: 2,
+                  colors: ['transparent'],
+                },
+                xaxis: {
+                  categories: [
+                    {% for time in timeseriesList %}
+                      '{{ time }}',
+                    {% endfor %}
+                  ],
+                },
+                yaxis: {
+                  title: {
+                    text: 'kW⋅h',
+                  },
+                },
+                fill: {
+                  opacity: 1,
+                },
+                tooltip: {
+                  y: {
+                    formatter: function (val) {
+                      return val + 'kW/month ';
+                    },
+                  },
+                },
+              }).render();
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="d-flex card h-100">{% include 'weather_widget.html'%}</div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

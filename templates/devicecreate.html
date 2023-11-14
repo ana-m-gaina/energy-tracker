@@ -1,0 +1,27 @@
+{% extends 'profile-base.html' %}
+
+{% block content %}
+
+
+  <div class="card">
+      <div class="card-body">
+        <br>
+        <!-- General Form Elements -->
+        <form method="POST" id="deviceForm" >
+          <div class="row mb-3 ">
+            <div class="col">
+              {% csrf_token %}
+              {{ form.as_p }}
+            </div>
+            <div class="col">
+              <button type="submit" class="btn btn-primary"> Add device</button>
+            </div>   
+          </div>
+        </form><!-- End General Form Elements -->
+      </div>
+    </div>
+
+
+
+    
+{% endblock content %}

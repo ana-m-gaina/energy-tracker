@@ -1,0 +1,180 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <link
+      rel="icon"
+      href="{% static 'assets/login/img/app_logo_green.png' %}"
+    />
+    <title>Home Insight</title>
+
+    <!-- Vendor CSS Files -->
+    <link
+      href="{% static 'assets/vendor/quill/quill.snow.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'assets/vendor/quill/quill.bubble.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'assets/vendor/remixicon/remixicon.css' %}"
+      rel="stylesheet"
+    />
+    <link
+      href="{% static 'assets/vendor/simple-datatables/style.css'  %}"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css ' %}" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar  -->
+      <nav id="sidebar">
+        <div class="sidebar-header">
+          <div>
+            <a
+              href="{% url 'homeinsightapp:profile-list' %}"
+              class="logo d-flex align-items-center"
+            >
+              <img
+                src="{% static 'assets/login/img/app_logo_white.png'  %}"
+                alt=""
+              />
+              <span class="d-inline p-2 text-white"> {{ profile.name }} </span>
+            </a>
+          </div>
+        </div>
+
+        <ul class="list-unstyled components">
+          <li class="active">
+            <a
+              href="{% url 'homeinsightapp:dashboard' profile_id=profile.uuid  %}"
+              >Dashboard</a
+            >
+          </li>
+
+          <li>
+            <a
+              href="{% url 'homeinsightapp:devicelist' profile_id=profile.uuid  %}"
+              >Device manager</a
+            >
+          </li>
+          <li>
+            <a
+              href="{% url 'homeinsightapp:devicelist' profile_id=profile.uuid  %}"
+              data-toggle="collapse"
+              aria-expanded="false"
+              class="dropdown-toggle"
+              >Devices</a
+            >
+            <ul class="list-unstyled" id="pageSubmenu">
+              {% for device in devices %}
+              <li>
+                <a
+                  href="{% url 'homeinsightapp:device-detail' profile_id=profile.uuid device_id=device.device_id %}"
+                >
+                  <span>{{ device.name }}</span>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+          <li>
+            <a
+              href="https://www.anagaina.site/"
+              target="_blank"
+              class="download"
+              >PORTFOLIO</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'homeinsightapp:home' %}" class="article">HOME</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <div class="container-fluid">
+            <div class="d-flex align-items-center gap-2">
+              <div class="text-center">
+                <button
+                  type="button"
+                  id="sidebarCollapse"
+                  class="btn btn-outline-primary"
+                >
+                  <i class="fas fa-align-left"></i>
+                </button>
+              </div>
+
+              <div class="col-auto">
+                {% block pagetitle %} {% endblock pagetitle %}
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <a
+                role="button"
+                class="btn btn-outline-primary"
+                href="{% url 'homeinsightapp:profile-list' %}"
+              >
+                Profiles
+              </a>
+            </div>
+          </div>
+        </nav>
+
+        <div class="row d-flex justify-content-between align-items-center">
+          {% block content %} {% endblock content %}
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="{% static 'assets/vendor/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'assets/vendor/tinymce/tinymce.min.js'  %}"></script>
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+</html>

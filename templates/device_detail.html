@@ -1,0 +1,450 @@
+{% extends 'profile-base.html' %}
+
+{% block pagetitle %}
+     <div class="pagetitle">
+      <h1>{{device.name}}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Devices</li>
+          <li class="breadcrumb-item active">Device</li>
+        </ol>
+      </nav>
+    </div>
+{% endblock pagetitle %} 
+
+
+{% block content %}
+
+   
+
+    <section class="section dashboard">
+      <div class="row">
+
+
+<!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+          <!-- Indexes -->
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Indexes <span>/History</span></h5>
+
+                
+
+
+                  <div id="indexChart"></div>
+
+         <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#indexChart"), {
+                    series: [{
+                      name: "Desktops",
+                      data: {{indexList}}
+                    }],
+                    chart: {
+                      height: 350,
+                      type: 'area',
+                      zoom: {
+                        enabled: false
+                      }
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    stroke: {
+                      curve: 'straight', 
+                      width: 2
+                    },
+                    grid: {
+                      row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                      },
+                    },
+                    xaxis: {
+                              type: 'datetime',
+                              categories: [{% for time in timeList %}  '{{ time }}',  {% endfor %}]
+                          },
+
+                    tooltip: {
+                              x: {
+                              format: 'dd/MM/yy HH:mm'
+                              },
+                          }
+
+                  
+                  }).render();
+                });
+              </script>
+              <!-- End Line Chart -->
+
+                  </div>
+              </div>
+            </div>
+          <!-- End Indexes -->
+
+
+          <!-- Hourly Usage -->
+           <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Hourly Usage <span>| last {{n_days}} days </span></h5>
+
+            
+                <div id="hourlyUsageChart"></div>
+
+                <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#hourlyUsageChart"), {
+                    series: [{
+                      name: "Desktops",
+                      data: [{% for item in last_n_days.all %}  '{{ item.value }}',  {% endfor %}] ,
+                    }],
+                    chart: {
+                      height: 350,
+                      type: 'area',
+                      zoom: {
+                        enabled: false
+                      }
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    stroke: {
+                      curve: 'straight', 
+                      width: 2
+                    },
+                    grid: {
+                      row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                      },
+                    },
+                    xaxis: {
+                              type: 'datetime',
+                              categories: [{% for time in last_n_days_timeList %}  '{{ time }}',  {% endfor %}]
+                          },
+
+                    tooltip: {
+                              x: {
+                              format: 'dd/MM/yy HH:mm'
+                              },
+                          }
+
+                  
+                  }).render();
+                });
+              </script>
+              <!-- End Line Chart -->
+
+
+                </div>
+            </div>
+          </div>
+          <!-- End Usage 
+                context ['m_days_hmean'] = m_days_hmean
+                context ['last_m_days_timeList'] = make_timepoints(last_m_days )
+
+        
+          -->
+
+               
+           <!-- Daily Average Usage -->
+           <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Daily Average <span>| last {{m_days}} days </span></h5>
+
+                <div id="hourlyAverageChart"></div>
+
+                                           <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#hourlyAverageChart"), {
+                    series: [{
+                        name: 'Usage',  
+                        data: [{% for item in m_value %}  '{{ item}}',  {% endfor %}] ,
+                    }],
+                    chart: {
+                      height: 350,
+                      type: 'area',
+                      zoom: {
+                        enabled: false
+                      }
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    stroke: {
+                      curve: 'straight', 
+                      width: 2
+                    },
+                    grid: {
+                      row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                      },
+                    },
+                    xaxis: {
+                              type: 'datetime',
+                              categories: [{% for time in m_time %}  '{{time}}',  {% endfor %}]
+                          },
+
+                    tooltip: {
+                              x: {
+                              format: 'dd/MM/yy HH:mm'
+                              },
+                          }
+
+                  
+                  }).render();
+                });
+              </script>
+              <!-- End Line Chart -->
+
+ 
+                </div>
+            </div>
+          </div>
+          <!-- End Usage  -->
+
+           <!-- Daily Average Usage -->
+           <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Monthly Average <span>| last year </span></h5>
+    
+
+<!-- Column Chart -->
+
+              <div id="columnChart"></div>
+
+            
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new ApexCharts(document.querySelector("#columnChart"), {
+                    series: [{
+                      name: 'Montly Average',
+                      data: [{% for item in y_value %}  '{{ item}}',  {% endfor %}] ,
+                    }],
+                    chart: {
+                      type: 'bar',
+                      height: 350
+                    },
+                    plotOptions: {
+                      bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                      },
+                    },
+                    dataLabels: {
+                      enabled: false
+                    },
+                    stroke: {
+                      show: true,
+                      width: 2,
+                      colors: ['transparent']
+                    },
+                    xaxis: {
+                      type: 'datetime',
+                      categories: [{% for time in y_time %}  '{{time}}',  {% endfor %}],
+                      
+                      
+                    },
+                     tooltip: {
+                              x: {
+                              show: true,
+                              format: 'MMM'
+                              },
+                          },
+                    yaxis: {
+                      title: {
+                        text: 'kW'
+                      }
+                    },
+                    fill: {
+                      opacity: 1
+                    },
+                    tooltip: {
+                      y: {
+                        formatter: function(val) {
+                          return "$ " + val + " thousands"
+                        }
+                      }
+                    }
+                  }).render();
+                });
+              </script>
+              <!-- End Column Chart -->
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+          </div>
+          <!-- End Usage  -->
+
+
+              
+
+ 
+
+          </div>
+        
+        </div>
+ 
+        <!-- End Left side columns -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--             Right side columns                   -->
+        <div class="col-lg-4">
+
+          <!-- Insert index -->
+
+
+          <div class="card">
+            <div class="card-body">
+        
+                <div class="card-title">
+                    <h5 class=" d-flex justify-content-between"> Index <span>  {% now "H:i" %} </span> </h5>
+                </div>
+           
+                        <!-- General Form Elements -->
+                        <form method="POST" prefix='index'>
+                          <div class="row mb-3 ">
+                            <div class="col">
+                              {% csrf_token %}
+                              {{ form.index}}
+                            </div>
+                            <div class="col">
+                              <button type="submit" class="btn btn-primary" name="index" >Submit</button>
+                            </div>   
+                          </div>
+                        </form>
+                        
+                        
+                        <!-- End General Form Elements -->
+                        
+            </div>
+        </div>
+
+        <div class="card">
+          <div class="card-body">
+      
+              <div class="card-title">
+                  <h5 class=" d-flex justify-content-between"> Import CSV  </h5>
+              </div>
+         
+                      <!-- General Form Elements -->
+                      <form  enctype="multipart/form-data"  method="post"  prefix='upload'>
+                      {% csrf_token %}
+                      {{ upload_form}}
+                      <br/>
+                      <input type="submit" class="btn btn-primary" name="upload">
+                      </form><!-- End General Form Elements -->
+
+          </div>
+      </div>
+
+
+          <!-- Index  -->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Last indexes</h5>
+        
+
+              <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Index</th>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+
+                  {% for item  in last_two %}
+                  <tr>
+                    <td>{{item.timestamp}}</td>
+                    <td>{{item.index}}</td>
+                  </tr>
+                  
+                  {% endfor %}
+
+                </tbody>
+              </table>
+
+            
+              <!-- End Default Table Example -->
+            </div>
+          </div>
+
+              <!-- Usage  -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Last records</h5>
+                  
+    
+                  <!-- Default Table -->
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">Usage</th>
+                      </tr>
+                    </thead>
+    
+                    <tbody>
+    
+                      {% for item  in last_five %}
+                      <tr>
+                        <td>{{item.timestamp}}</td>
+                        <td>{{item.value}}</td>
+                      </tr>
+                      
+                      {% endfor %}
+    
+                    </tbody>
+                  </table>
+    
+                
+                  <!-- End Default Table Example -->
+                </div>
+              </div>
+
+          
+          </div>
+      </div>
+         
+
+            </div>
+        </div>
+
+        </div><!-- End Right side columns -->
+
+      </div>
+    </section>
+
+
+  {% endblock content %}

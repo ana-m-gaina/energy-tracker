@@ -1,0 +1,25 @@
+{% extends 'profile-base.html' %}
+
+{% block pagetitle %}
+     <div class="pagetitle">
+      <h1>{{device.name}}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Devices</li>
+          <li class="breadcrumb-item active">DeviceIndex</li>
+        </ol>
+      </nav>
+    </div>
+{% endblock pagetitle %} 
+
+
+{% block content %}
+
+    <div>
+        {{message}}
+    </div>
+
+    <a class="btn btn-primary"  href="{% url 'homeinsightapp:device-detail' profile_id=profile.uuid device_id=device.device_id %}">Back to device</a>
+
+
+  {% endblock content %}

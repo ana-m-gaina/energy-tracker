@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class=' min-h-screen flex-col flex justify-center items-center'>
+    <div class="login">
+        
+        <h2 class="text-center font-medium text-5xl my-4 "> Create Profile  </h2>
+
+        <form method="POST"  id="unitForm" data-localitati-url="/ajax/load-localitati/">
+            {% csrf_token %}
+            <table class="container input-text">
+                {{ form.as_table }}
+            </table>
+            <div>
+                <button type="submit" class="signin_button">Create Profile</button>
+            </div>
+        </form> 
+
+        
+            <a href="{% url 'homeinsightapp:profile-list' %}" type="button" class="cancel_button" >Cancel</a>
+        
+    </div>
+</section> 
+
+
+
+
+
+
+ 
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+// get judet choice
+
+$("#id_judet").change(function () {
+        const url = $("#unitForm").attr("data-localitati-url");  
+        const judetId = $(this).val();
+
+        $.ajax({                       
+            url: url,                    
+            data: {
+                'judet_id': judetId       
+            },
+            success: function (data) { 
+                let html_data = '<option value="">---------</option>';
+                data.forEach(function (localitate) {
+                    html_data += `<option value="${localitate.id}">${localitate.name}</option>`
+                });
+                console.log(html_data);
+                $("#id_localitate").html(html_data);
+            }
+        });
+
+    });
+
+
+</script>
+
+{% endblock content %}

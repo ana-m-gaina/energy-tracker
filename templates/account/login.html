@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load socialaccount %}
+
+{% block content %}
+
+<section class=' min-h-screen flex-col flex justify-center items-center'>
+    <div class="login">
+        <h1 class="text-center font-medium text-5xl my-4 "> Sign In  </h1>
+       
+        <form method="POST">
+            {% csrf_token %}
+
+                <div class=" text-center my-4">
+                    <p> <strong style="color: red;">{{form.non_field_errors}} </strong></p>
+                </div>
+                 
+                <div class="input-text">
+                    <input type="email" name="login" id="id_login" id="idnputEmail" name="email" placeholder="Email or phone number" />
+                    <div class="warning-input" id="warningEmail">
+                        Please enter a valid email or phone number.
+                    </div>
+                </div>
+                
+                <div class="input-text">
+                    <input  type="password" name="password" id="id_password" placeholder="Password" />
+                    <div class="warning-input" id="warningPassword">
+                        Your password must contain between 4 and 60 characters.
+                    </div>
+                </div>
+
+                <div class="remember-flex">
+                    <div>
+                        <input type="checkbox">
+                        <label class="color_text">Remember me</label>
+                    </div>
+                    <div class="help">
+                        <a class="color_text" href="#">Need help?</a>
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="signin_button">Sign In</button>
+                </div>
+
+                <div class=" text-center d-flex p-2 justify-content-between">
+                <p class="signup-text"> Don't have an account?</p>
+                <a href="{% url 'account_signup' %}" class="signup-link">Sign Up</a>
+                </div>
+            
+                <h5 class="text-center text-dark"> Or Login With  </h5>
+             
+
+                 <div>
+                    <a type="submit" href="{% provider_login_url 'google' %}" class="secondary_button d-flex p-2 justify-center"  > Google</a>
+                </div> 
+            
+                 <div>
+                    <a type="submit" href="{% url 'homeinsightapp:guest' %}" class="secondary_button d-flex p-2 justify-center"  > Demo </a>
+                </div> 
+
+   
+
+
+                
+
+                
+    
+
+        </form>
+    </div>
+</section>
+
+
+
+{% endblock content %}

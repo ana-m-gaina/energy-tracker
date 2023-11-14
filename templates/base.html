@@ -1,0 +1,69 @@
+{% load static %}
+
+<html>
+  <head>
+    <meta name="description" content="Hello this is my first web page!." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"/>
+    <link rel="stylesheet"  href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{% static 'assets/src/styles.css' %}" />
+
+    <link rel="icon" href="{% static 'assets/login/img/app_logo_green.png' %}">
+    <title>Home Insight</title>
+    
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="navbar__brand row">
+             <img src="{% static 'assets/login/img/app_logo_white_circle.png' %}" alt="logo" class="brand__logo" />
+        </div>
+             
+          {% if not request.user.is_authenticated %}
+          <div class="nav__item">
+            <a href="{% url 'account_login' %}" class="btn btn-outline-primary btn-lg" role="button" > Sign in</a>
+          </div>
+          {% else %}
+          <div>
+              <a class="btn btn-outline-light btn-lg" role="button" href="{% url 'account_logout' %}">Logout</a>
+          </div>
+          {% endif %}
+        </div>
+      </nav>
+    </header>
+
+    {% block content %}
+    
+    {% endblock content %}
+
+    <footer>
+      <div class="footer__row__2">
+        <div class="column__1">
+          <p>FAQ</p>
+          <p>Investor Relations</p>
+          <p>Privacy</p>
+        </div>
+        <div class="column__2">
+          <p>Help Centre</p>
+          <p>Jobs</p>
+          <p>Cookie Preferences</p>
+        </div>
+
+        <div class="column__3">
+          <p>Media Centre</p>
+          <p>Terms of Use</p>
+          <p>Contact Us</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'assets/src/index.js' %}"></script>
+    <script src="{% static 'assets/login/js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+   
+  </body>
+</html>

@@ -1,0 +1,130 @@
+{% extends 'profile-base.html' %}
+
+{% block pagetitle %}
+     <div class="pagetitle">
+      <h1>Device manager</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Profile</li>
+          <li class="breadcrumb-item active">Device manager</li>
+        </ol>
+      </nav>
+
+    </div>
+{% endblock pagetitle %} 
+
+
+{% block content %}
+
+    <section class="section dashboard">
+      <div class="row">
+
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+
+     <section class="bg-primary_black min-h-screen flex-col flex justify-center items-center">
+        <div class="card">
+            <div class="card-body">
+    
+              <br>
+              <!-- General Form Elements -->
+              <form method="POST" id="deviceForm" >
+          
+                    <label for="name">Device name: </label>
+                    {% csrf_token %}
+                    {{ form.name }}
+       
+                    <button type="submit" class="btn btn-primary mt-auto p-2"> Add device</button>   
+            
+              </form><!-- End General Form Elements -->
+                <br> 
+
+      
+
+           <div class=" justify-center input_profiles ">
+
+             <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Device name</th>
+                    <th scope="col">Device id</th>
+                    <th scope="col">Enable disable auto-track</th>
+
+                  </tr>
+                </thead>
+
+                <tbody>
+        
+                  {% for device in devices %}
+                  <tr>
+                    <td> <a href="{% url 'homeinsightapp:device-detail' profile_id=profile.uuid device_id=device.device_id %}"> {{ device.name }} </a></td>
+                    <td> {{ device.device_id}} </td>
+                    <td> <div class="form-check form-switch">
+                          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                          <label class="form-check-label" for="flexSwitchCheckDefault">Enable</label>
+                        </div>
+                     </td>
+
+                  </tr> 
+                  {% endfor %}
+
+                </tbody>
+              </table>
+        </div>
+         </div>
+      </div>
+
+    </section>
+    
+ 
+
+    
+      </div>
+
+  </div><!-- End Left side columns -->
+
+
+
+        <!-- Right side columns -->
+        <div class="col-lg-4">
+
+    
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between">Deleted devices  <span> {% now "H:i" %} </span></h5>
+         <!-- Default Table -->
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Device name</th>
+                    <th scope="col">Device id</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {% for device in devices %}
+                  <tr>
+                    <td> {{ device.name }}</td>
+                    <td> {{ device.device_id}} </td>
+                  </tr> 
+                  {% endfor %}
+                </tbody>
+              </table>
+
+        
+
+    </div>
+</div>
+
+
+
+        </div><!-- End Right side columns -->
+
+
+
+      
+
+{% endblock content %}
+

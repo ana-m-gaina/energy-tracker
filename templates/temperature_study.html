@@ -1,0 +1,65 @@
+{% block content %}
+
+<div class="card info-card revenue-card">
+  <div class="card-body">
+    <h5 class="card-title">Temperature Study <span>| past 3 days </span></h5>
+
+    <div id="areaChart"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          new ApexCharts(document.querySelector("#areaChart"), {
+          series: [{
+              name: 'Temperature',
+              data: [{% for temp in tempList %}  '{{ temp }}',  {% endfor %}] ,
+          }],
+
+          chart: {
+              height: 300,
+              type: 'area',
+              toolbar: {
+              show: false
+              },
+          },
+
+
+          colors: ['#008ffb', '#2eca6a', '#ff771d'],
+
+          fill: {
+              type: "gradient",
+              gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.3,
+              opacityTo: 0.4,
+              stops: [0, 90, 100]
+              }
+          },
+
+          dataLabels: {
+              enabled: false
+          },
+
+          stroke: {
+              curve: 'smooth',
+              width: 2
+          },
+
+          xaxis: {
+              type: 'datetime',
+              categories: [{% for time in timeList %}  '{{ time }}',  {% endfor %}]
+          },
+
+          tooltip: {
+              x: {
+              format: 'dd/MM/yy HH:mm'
+              },
+          }
+
+          }).render();
+
+      });
+    </script>
+  </div>
+</div>
+
+{% endblock %}

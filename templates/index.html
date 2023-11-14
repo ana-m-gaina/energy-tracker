@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <main>
+      <section class="hero">
+        <div class="hero__bg__image__container">
+          <img src="{% static 'assets/login/img/hero2.jpg' %}"alt="BG hero image" class="hero__bg__image"  />
+
+        </div>
+        <div class="hero__bg__overlay"></div>
+
+        <div class="hero__card">
+          <h1 class="hero__title"> Smarter energy management  <br> with <span style="color:0ea5e9">Home Insight</span> </h1>
+          
+
+          <p class="hero__subtitle">
+          Get a bird's eye view of your home's energy consumption, effortlessly monitor your devices, and take control of your bills. 
+          </p>
+          <p class="hero__description">
+            Start your journey to a more sustainable future with HI today!
+          </p>
+
+          <div class="email__form__container">
+            <div class="form__container">
+              <input style="color: black;" type="email" class="email__input" placeholder=" " />
+              <label class="email__label">Email Address</label>
+            
+            </div>
+            <a href="{% url 'account_signup' %}" class="primary__button">
+              Sign Up <i class="fal fa-chevron-right"></i>
+            </a>
+          </div>
+
+          <br><br><br><br>
+
+        </div>
+        
+
+      </section>
+
+<section class="FAQ__list__container">
+  <br><br>
+        <h1 class="FAQ__heading">Frequently Asked Questions</h1>
+
+        <div class="FAQ__list">
+          <div class="FAQ__accordian">
+            <button class="FAQ__title">
+              Why should I track my energy usage?<i class="fal fa-plus"></i>
+            </button>
+            <div class="FAQ__visible">
+              <p>
+                Tracking your energy usage can provide several benefits, including cost savings and increased sustainability. By monitoring your energy consumption, you can identify areas where you can reduce your energy bills and save money. Additionally, understanding your energy usage patterns can help you make informed decisions about your energy consumption and take steps to reduce your carbon footprint. Overall, tracking your energy usage can help you make smarter, more sustainable energy choices.
+              </p>
+            </div>
+          </div>
+          <div class="FAQ__accordian">
+            <button class="FAQ__title">
+              Can the app be accessed from multiple devices?<i class="fal fa-plus"></i>
+            </button>
+            <div class="FAQ__visible">
+              <p>
+                Yes, as a web-based app, Home Insight can be accessed from multiple devices, such as smartphones, tablets, laptops, and desktops, as long as the device has an internet connection. This allows you to monitor and manage your energy consumption from anywhere, at any time.
+              </p>
+            </div>
+          </div>
+          <div class="FAQ__accordian">
+            <button class="FAQ__title">
+              How much does the app cost?<i class="fal fa-plus"></i>
+            </button>
+            <div class="FAQ__visible">
+              <p>
+                The Home Insight app is completely free to use. You do not need to pay any upfront costs or monthly fees to access the app and its features. By offering the app for free, our goal is to make energy management accessible to as many people as possible, regardless of their budget.
+              </p>
+            </div>
+          </div>
+          <div class="FAQ__accordian">
+            <button class="FAQ__title">
+              Are there any compatibility requirements for using the app?<i class="fal fa-plus"></i>
+            </button>
+            <div class="FAQ__visible">
+              <p>
+                 You do not need any special hardware or software to use the app, just a device with an internet connection and a web browser that is up-to-date. Whether you're using a laptop, tablet, or smartphone, you can access Home Insight from any device and start monitoring your energy usage and saving money.              </p>
+            </div>
+          </div>
+
+         
+          </div>
+        </div>
+        <br><br>
+      </section>
+    </main>
+
+{% endblock content %}
