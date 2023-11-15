@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1(cw0_y*5(a8#zm0ip#k1hf2kc3+u)v2w^zc&e3(3gw3s1ba5i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
@@ -93,7 +94,7 @@ DATABASES = {
 
 }
 
-ALLOWED_HOSTS = ['energy-tracker-92f6c95445f7.herokuapp.com', '127.0.0.1' ]
+ALLOWED_HOSTS = ['energy-tracker-92f6c95445f7.herokuapp.com', '127.0.0.1', '*' ]
 
 
 
@@ -147,6 +148,7 @@ ACCOUNT_USERNAME_REQUIRED=False
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
 
@@ -178,7 +180,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-
+import django_heroku 
+django_heroku.settings(locals())
 
 
 
