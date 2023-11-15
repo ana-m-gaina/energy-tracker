@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load socialaccount %}
+<!-- {% load socialaccount %} -->
 
 {% block content %}
 
@@ -51,9 +51,7 @@
                 <h5 class="text-center text-dark"> Or Login With  </h5>
              
 
-                 <div>
-                    <a type="submit" href="{% provider_login_url 'google' %}" class="secondary_button d-flex p-2 justify-center"  > Google</a>
-                </div> 
+   
             
                  <div>
                     <a type="submit" href="{% url 'homeinsightapp:guest' %}" class="secondary_button d-flex p-2 justify-center"  > Demo </a>
@@ -74,3 +72,7 @@
 
 
 {% endblock content %}
+
+              <!-- <div>
+                    <a type="submit" href="{% provider_login_url 'google' %}" class="secondary_button d-flex p-2 justify-center"  > Google</a>
+                </div>  -->
