@@ -1,1 +1,1 @@
-web: gunicorn homeinsightapp.wsgi
+web: gunicorn homeinsightprj.wsgi
