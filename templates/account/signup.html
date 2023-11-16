@@ -1,60 +1,92 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 <!-- {% load socialaccount %} -->
 
 {% block content %}
 
-<section class=' min-h-screen flex-col flex justify-center items-center'>
-    <div class="login">
-        <h2 class="text-center font-medium text-5xl my-4 text-gray-100"> Sign Up  </h2>
-       
-        <form method="POST">
-            {% csrf_token %}
+<section class="back h-full w-full flex-col flex justify-center items-center">
+  <div class="login">
+    <h2 class="text-center font-medium text-5xl my-4 text-gray-100">Sign Up</h2>
 
-            <div class=" text-center my-4">
-                <p> <strong style="color: red;">{{form.non_field_errors}} </strong></p>
-            </div>
+    <form method="POST">
+      {% csrf_token %}
 
-            <div class="input-text">
-                <input required type="email" name="email" id="id_email" id="idnputEmail" name="email" placeholder="Email or phone number" onfocus="inputOnFocus(this)" onblur="inputOnBlur(this)"/>
-                <div class="warning-input" id="warningEmail">
-                    Please enter a valid email or phone number.
-                </div>
-            </div>
-            
-            <div class="input-text">
-                <input required type="password" name="password1" id="id_password1" placeholder="Password" onfocus="inputOnFocus(this)" onblur="inputOnBlur(this)"/>
-                <div class="warning-input" id="warningPassword">
-                    Your password must contain between 4 and 60 characters.
-                </div>
-            </div>
-            <div class="input-text">
-                <input required type="password" name="password2" id="id_password2" placeholder="Confirm Password" onfocus="inputOnFocus(this)" onblur="inputOnBlur(this)"/>
-                <div class="warning-input" id="warningPassword">
-                    Your password must contain between 4 and 60 characters.
-                </div>
-            </div>
-           
-            {%if redirect_field_value %}
-                <input type="hidden" name="{{redirect_field_name}}" value="{{redirect_field_value}}">
-            {% endif %}
-            <div>
-                <button type="submit" class="signin_button">Sign Up</button>
-            </div>
+      <div class="text-center my-4">
+        <p><strong style="color: red">{{form.non_field_errors}} </strong></p>
+      </div>
 
-             <div class=" text-center d-flex p-2 justify-content-between">
-                <p class="signup-text"> Have an account?</p>
-                <a href="{% url 'account_login' %}" class="signup-link">Sign In</a>
-                </div>
-            
+      <div class="input-text">
+        <input
+          required
+          type="email"
+          name="email"
+          id="id_email"
+          id="idnputEmail"
+          name="email"
+          placeholder="Email or phone number"
+          onfocus="inputOnFocus(this)"
+          onblur="inputOnBlur(this)"
+        />
+        <div class="warning-input" id="warningEmail">
+          Please enter a valid email or phone number.
+        </div>
+      </div>
 
-                 <div>
-                    <a type="submit" href="{% url 'homeinsightapp:guest' %}" class="secondary_button d-flex p-2 justify-center"  > Try Demo </a>
-                </div> 
+      <div class="input-text">
+        <input
+          required
+          type="password"
+          name="password1"
+          id="id_password1"
+          placeholder="Password"
+          onfocus="inputOnFocus(this)"
+          onblur="inputOnBlur(this)"
+        />
+        <div class="warning-input" id="warningPassword">
+          Your password must contain between 4 and 60 characters.
+        </div>
+      </div>
+      <div class="input-text">
+        <input
+          required
+          type="password"
+          name="password2"
+          id="id_password2"
+          placeholder="Confirm Password"
+          onfocus="inputOnFocus(this)"
+          onblur="inputOnBlur(this)"
+        />
+        <div class="warning-input" id="warningPassword">
+          Your password must contain between 4 and 60 characters.
+        </div>
+      </div>
 
-                
-        </form>
-    </div>
+      {%if redirect_field_value %}
+      <input
+        type="hidden"
+        name="{{redirect_field_name}}"
+        value="{{redirect_field_value}}"
+      />
+      {% endif %}
+      <div>
+        <button type="submit" class="signin_button">Sign Up</button>
+      </div>
+
+      <div class="text-center d-flex p-2 justify-content-between">
+        <p class="signup-text">Have an account?</p>
+        <a href="{% url 'account_login' %}" class="signup-link">Sign In</a>
+      </div>
+
+      <div>
+        <a
+          type="submit"
+          href="{% url 'homeinsightapp:guest' %}"
+          class="secondary_button d-flex p-2 justify-center"
+        >
+          Try Demo
+        </a>
+      </div>
+    </form>
+  </div>
 </section>
 
 {% endblock content %}
